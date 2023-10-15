@@ -1,0 +1,78 @@
+.shop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 20px;
+    max-width: calc(157px * 4 + 20px * 3);
+    margin: auto auto 10px;
+}
+
+.card {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.card * {
+    font-family: Nunito;
+}
+
+.card__presentation {
+    height: 200px;
+    width: 157px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.card__presentation > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.card__presentation > img:hover, .card__title:hover {
+    opacity: .9;
+}
+
+.card__put {
+    background: rgba(96, 96, 96, .4);
+    border: none;
+    border-radius: 6px;
+    padding: 5px;
+    cursor: pointer;
+    transition: .1s ease-in-out;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.card__put:hover img {
+    filter: invert(94%) sepia(64%) saturate(3%) hue-rotate(197deg) brightness(114%) contrast(82%);
+}
+
+.card__put img {
+    filter: invert(96%) sepia(100%) saturate(0%) hue-rotate(46deg) brightness(109%) contrast(100%);
+    width: 20px;
+    height: 20px;
+}
+
+.card__title {
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    color: #606060;
+}
+
+.card__title:hover {
+    color: #242424;
+    text-decoration: underline;
+}
+
+.card__price {
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 700;
+}

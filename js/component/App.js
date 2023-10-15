@@ -1,6 +1,7 @@
 import {Component, Requirement} from "./view/Component.js";
 import {Header} from "./view/Header.js";
 import {Nav} from "./view/Nav.js";
+import {Shop} from "./view/Shop.js";
 import {Main} from "./view/Main.js";
 import {Footer} from "./view/Footer.js";
 
@@ -97,9 +98,28 @@ export class App extends Component {
         this.#components.forEach(component => {
             Array.prototype.push.apply(requirements, component.requirements);
         });
+
+        // remove duplicates
+        requirements.forEach(requirement => {
+            let requirementDuplicates = false;
+            let entries = 0;
+            requirements.forEach(r => {
+                if (requirement.location === r.location &&
+                    requirement.content.toString() === r.content.toString()) {
+                    if (++entries > 1) {
+                        requirementDuplicates = true;
+                    }
+                }
+            })
+            if (requirementDuplicates) {
+                requirements.splice(requirements.lastIndexOf(requirement), 1);
+            }
+        })
+
         requirements.forEach(requirement =>
             requirement.content.classList.add(`requirement_${this.execHash}`)
         );
+
         if (requirements) {
             requirements.forEach(requirement => {
                 switch (requirement.location) {
@@ -131,7 +151,10 @@ export class App extends Component {
         }
         this.execHash = generateHash();
 
-        this.#components.push(new Header(), new Nav(), new Main(), new Footer());
+
+        this.#components.push(new Header(), new Nav(), new Shop());
+
+
         this.#clearImports();
         this.#importRequirements();
         this.#initComponents();

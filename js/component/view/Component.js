@@ -4,6 +4,12 @@ String.prototype.toNode = function() {
     return temp.body.firstChild || temp.head.firstChild;
 }
 
+Node.prototype.toString = function () {
+    let temp = document.createElement("div");
+    temp.append(this);
+    return temp.innerHTML;
+}
+
 /**
  * The interface describing that the class
  * could be loaded as an app's component
@@ -56,9 +62,7 @@ export class Requirement {
      * @return Requirement
      **/
     static ofNode(content) {
-        let temp = document.createElement("div");
-        temp.append(content);
-        return this.ofString(temp.innerHTML);
+        return this.ofString(content.toString());
 
     }
 

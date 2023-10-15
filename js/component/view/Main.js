@@ -8,6 +8,10 @@ export class Main extends Component {
     ];
 
     getNode() {
-        return `<main>Main</main>`.toNode();
+        return `
+            <main class="">
+                
+            </main>
+        `.toNode();
     }
 }
