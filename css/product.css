@@ -1,0 +1,117 @@
+.product * {
+    color: #303030;
+}
+
+.product-container {
+    display: flex;
+    max-width: 670px;
+    width: 100%;
+    margin: 50px auto auto;
+}
+
+.product {
+    max-width: 366px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.product__image img {
+    align-self: center;
+    border-radius: 50px;
+    max-height: 400px;
+    max-width: 360px;
+    min-height: 300px;
+    height: 90vw;
+    padding: 10px;
+    box-shadow: 0 0 0 0 transparent,
+    0 0 0 0 transparent,
+    2px 2px 6px 2px rgba(96, 96, 96, 0.15),
+    0 0 0 0 transparent;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.product__title {
+    font-family: Gelasio;
+    font-size: 24px;
+    max-width: 300px;
+    margin-bottom: 5px;
+}
+
+.product__info {
+    display: flex;
+    justify-content: space-between;
+    min-width: 180px;
+    width: max-content;
+    margin-bottom: 10px;
+}
+
+.product__price {
+    font-family: Nunito Sans;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.product__rating {
+    display: flex;
+    align-items: center;
+}
+
+.product__rating img {
+    user-select: none;
+    margin-right: 5px;
+}
+
+.product__rating span {
+    font-family: Nunito Sans;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.product__description {
+    font-family: Nunito Sans;
+    font-weight: lighter;
+    text-align: left;
+    max-width: 365px;
+    color: #606060;
+    margin-bottom: 20px;
+}
+
+.product__to-cart {
+    color: white;
+    height: 60px;
+    width: 250px;
+    cursor: pointer;
+    font-family: Nunito Sans;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    background: #242424;
+    box-shadow: 0 10px 20px 0 rgba(48, 48, 48, 0.25);
+    transition: .07s ease-in-out;
+    user-select: none;
+}
+
+.product__to-cart:hover {
+    background: #2f2f2f;
+}
+
+@media screen and (max-width: 767px) {
+    .product-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .product__image img {
+        margin-right: 0;
+    }
+
+    .product {
+        margin: 0 10px;
+    }
+}

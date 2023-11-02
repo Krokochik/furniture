@@ -1,4 +1,7 @@
-import {Component, Requirement} from "./Component.js";
+import {Component} from "../model/Component.js";
+import {Requirement} from "../model/Requirement.js";
+import {ShopService} from "../service/ShopService.js";
+import {Bean} from "../service/Bean.js";
 
 export class Shop extends Component {
     requirements = [
@@ -10,22 +13,21 @@ export class Shop extends Component {
         )
     ];
 
-    getNode() {
+    /**
+     * @type Node
+     **/
+    #node;
+
+    async init(params) {
+        super.init();
+        const productList = await Bean.shopService.getProductList();
         let shop = `<div class="shop"></div>`.toNode();
-        for (let i = 0; i < 12; i++) {
-            shop.appendChild(`
-                <div class="card">
-                    <div class="card__presentation">
-                        <img src="https://via.placeholder.com/500x700/00a4d6" alt="#">
-                            <button class="card__put">
-                                <img src="/img/add-to-cart.svg" alt="to cart">
-                            </button>
-                    </div>
-                    <a class="card__title" href="#">Black simple lamp</a>
-                    <span class="card__price">$ 12.00</span>
-                </div>
-            `.toNode());
-        }
-        return shop;
+        if (productList) productList
+            .forEach(product => shop.append(product.getPreviewNode()))
+        this.#node = shop;
+    }
+
+    getNode() {
+        return this.#node;
     }
 }

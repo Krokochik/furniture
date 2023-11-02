@@ -2,8 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px 20px;
-    max-width: calc(157px * 4 + 20px * 3);
+    gap: 15px 30px;
+    max-width: calc(157px * 4 + 30px * 3);
     margin: auto auto 10px;
 }
 
@@ -11,6 +11,7 @@
     width: max-content;
     display: flex;
     flex-direction: column;
+    max-width: 157px;
 }
 
 .card * {
@@ -30,11 +31,7 @@
     border-radius: 10px;
 }
 
-.card__presentation > img:hover, .card__title:hover {
-    opacity: .9;
-}
-
-.card__put {
+.card__to-cart {
     background: rgba(96, 96, 96, .4);
     border: none;
     border-radius: 6px;
@@ -46,21 +43,24 @@
     bottom: 10px;
     width: 30px;
     height: 30px;
+    user-select: none;
 }
 
-.card__put:hover img {
+.card__to-cart:hover img {
     filter: invert(94%) sepia(64%) saturate(3%) hue-rotate(197deg) brightness(114%) contrast(82%);
 }
 
-.card__put img {
+.card__to-cart img {
     filter: invert(96%) sepia(100%) saturate(0%) hue-rotate(46deg) brightness(109%) contrast(100%);
     width: 20px;
     height: 20px;
+    pointer-events: none;
 }
 
 .card__title {
     text-decoration: none;
     font-size: 14px;
+    cursor: pointer;
     text-transform: capitalize;
     margin-bottom: 5px;
     color: #606060;

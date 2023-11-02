@@ -1,37 +1,17 @@
-String.prototype.toNode = function() {
-    const parser = new DOMParser();
-    const temp = parser.parseFromString(this.toString(), 'text/html');
-    return temp.body.firstChild || temp.head.firstChild;
-}
+import {Component} from "./Component.js";
+import {Cipher} from "../service/Cipher.js";
 
-Node.prototype.toString = function () {
-    let temp = document.createElement("div");
-    temp.append(this);
-    return temp.innerHTML;
-}
 
-/**
- * The interface describing that the class
- * could be loaded as an app's component
- **/
-export class Component {
-    /**
-     * Specifies what is significant to load with component
-     * @type Requirement[]
-     **/
-    requirements;
-
-    /**
-     * Inits component's logic & elements
-     * @return void
-     **/
-    init() {}
-
-    /**
-     * Returns node to be included in document
-     * @return Node
-     **/
-    getNode() {}
+String.prototype.hashCode = function() {
+    let hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0;
+    }
+    return hash;
 }
 
 /**
@@ -51,9 +31,16 @@ export class Requirement {
      **/
     content;
 
+    #hash;
+
     constructor(location, content) {
         this.location = location;
         this.content = content;
+        this.#hash = "num_" + (location + content.outerHTML).hashCode();
+    }
+
+    get hash() {
+        return this.#hash;
     }
 
     /**
@@ -63,7 +50,6 @@ export class Requirement {
      **/
     static ofNode(content) {
         return this.ofString(content.toString());
-
     }
 
     /**

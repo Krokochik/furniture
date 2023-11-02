@@ -1,9 +1,6 @@
-import {Component, Requirement} from "./view/Component.js";
-import {Header} from "./view/Header.js";
-import {Nav} from "./view/Nav.js";
-import {Shop} from "./view/Shop.js";
-import {Main} from "./view/Main.js";
-import {Footer} from "./view/Footer.js";
+import {Component} from "./model/Component.js";
+import {Requirement} from "./model/Requirement.js";
+import {Bean} from "./service/Bean.js";
 
 export class App extends Component {
     #requirements = [
@@ -76,25 +73,60 @@ export class App extends Component {
         document.body.prepend(this.#renderedTree.app);
     }
 
-    #loadComponentsToTree() {
+    loadComponentsToTree() {
+        /*        for (let i in this.#components) {
+                    let component = this.#components[i];
+                    if (component && component.getNode()) {
+                        this.#htmlTree.app.append(component.getNode());
+                    }
+                }*/
         this.#components.forEach(component => {
-            this.#htmlTree.app.append(component.getNode());
+            if (component && component.getNode()) {
+                if (![...component.getNode().classList].includes(component.hash)) {
+                    component.getNode().classList.add(component.hash);
+                }
+            }
         })
+
+        for (let i in this.#components) {
+            const component = this.#components[i];
+            const app = this.#htmlTree.app;
+            if (!component || !component.getNode()) continue;
+
+            let child = app.querySelector(`.${component.hash}`);
+            if (child !== null) {
+                if (+Array.from(app.children).indexOf(child) !== +i) {
+                    if (i < app.children.length) {
+                        app.insertBefore(child, app.childNodes[i]);
+                    }
+                }
+            } else {
+                child = component.getNode();
+                if (i >= app.children.length) {
+                    app.appendChild(child);
+                } else {
+                    app.insertBefore(child, app.childNodes[i]);
+                }
+            }
+        }
     }
 
-    #initComponents() {
-        this.#components.forEach(component => {
-            component.init();
-        })
+    async initComponents(params) {
+        for (let i in this.#components) {
+            if (this.#components[i]) {
+                await this.#components[i].init(params);
+            }
+        }
     }
 
     #clearImports() {
-        document.querySelectorAll(`.requirement_${this.execHash}`)
+        document.querySelectorAll(`.requirement_${this.hash}`)
             .forEach(importation => importation.remove());
     }
 
-    #importRequirements() {
-        let requirements = this.#requirements || [];
+    importRequirements() {
+        let requirements = [...this.#requirements] || [];
+
         this.#components.forEach(component => {
             Array.prototype.push.apply(requirements, component.requirements);
         });
@@ -105,7 +137,7 @@ export class App extends Component {
             let entries = 0;
             requirements.forEach(r => {
                 if (requirement.location === r.location &&
-                    requirement.content.toString() === r.content.toString()) {
+                    requirement.content.outerHTML === r.content.outerHTML) {
                     if (++entries > 1) {
                         requirementDuplicates = true;
                     }
@@ -116,49 +148,88 @@ export class App extends Component {
             }
         })
 
-        requirements.forEach(requirement =>
-            requirement.content.classList.add(`requirement_${this.execHash}`)
-        );
+        requirements.forEach(requirement => {
+            requirement.content.classList.add(`requirement_${this.hash}`)
+            requirement.content.classList.add(requirement.hash)
+        });
 
         if (requirements) {
             requirements.forEach(requirement => {
-                switch (requirement.location) {
-                    case "head":
-                        this.#htmlTree.head.append(requirement.content);
-                        break;
-                    case "body":
-                        this.#htmlTree.body.prepend(requirement.content);
-                        break;
-                    case "app":
-                        this.#htmlTree.app.prepend(requirement.content);
-                        break;
-                    default:
-                        if (document.querySelector(requirement.location)) {
-                            document.querySelector(requirement.location)
-                                .prepend(requirement.content);
-                        }
+                if (!document.querySelector(`.${requirement.hash}`)) {
+                    switch (requirement.location) {
+                        case "head":
+                            this.#htmlTree.head.append(requirement.content.cloneNode(true));
+                            break;
+                        case "body":
+                            this.#htmlTree.body.prepend(requirement.content.cloneNode(true));
+                            break;
+                        case "app":
+                            this.#htmlTree.app.prepend(requirement.content.cloneNode(true));
+                            break;
+                        default:
+                            if (document.querySelector(requirement.location)) {
+                                document.querySelector(requirement.location)
+                                    .prepend(requirement.content.cloneNode(true));
+                            }
+                    }
                 }
             });
         }
 
+        // remove unnecessary requirements from html
+        document.querySelectorAll(`.requirement_${this.hash}`)
+            .forEach(requirement => {
+                requirement.classList.forEach(clazz => {
+                    if (clazz.startsWith("num_") &&
+                        clazz.split("_").length === 2 &&
+                        !Number.isNaN(+clazz.split("_")[1])) {
+                        let required = false;
+                        requirements.forEach(r => {
+                            if (r.content.classList.contains(clazz)) required = true;
+                        })
+                        if (!required) document.querySelectorAll(`.${clazz}`)
+                            .forEach(el => el.remove())
+                    }
+                })
+            })
     }
 
-    init() {
-        let generateHash = () => {
-            const array32 = new Uint32Array(8);
-            crypto.getRandomValues(array32);
-            return Array.from(array32, dec => ('0' + dec.toString(16)).slice(-2)).join('');
-        }
-        this.execHash = generateHash();
+    set components(components) {
+        this.#components = components;
+    }
 
+    /**
+     * @param {Component} components
+     **/
+    async addComponents(...components) {
+        components.forEach(component => {
+            this.#components.push(component);
+        });
+        await this.initComponents();
+        this.importRequirements();
+        this.loadComponentsToTree();
+    }
 
-        this.#components.push(new Header(), new Nav(), new Shop());
+    /**
+     * @param {Component} components
+     **/
+    async setComponents(...components) {
+        this.#components = [];
+        components.forEach(component => {
+            this.#components.push(component);
+        });
+        await this.initComponents();
+        this.#htmlTree.app.innerHTML = ``;
+        this.loadComponentsToTree();
+    }
 
+    get components() {
+        return this.#components;
+    }
 
-        this.#clearImports();
-        this.#importRequirements();
-        this.#initComponents();
-        this.#loadComponentsToTree();
+    async init(params) {
+        super.init();
+        this.importRequirements();
         this.render();
     }
 }

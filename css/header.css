@@ -83,18 +83,18 @@
     padding-left: 3px;
 }
 
-.cart {
+.header__cart {
     display: flex;
     align-items: center;
 }
 
-.cart__link {
+.header-cart__link {
     box-sizing: content-box;
     padding-right: 10px;
     position: relative;
 }
 
-.cart__link > span {
+.header-cart__link > span {
     opacity: .8;
     font-size: 11px;
     position: absolute;
@@ -107,7 +107,7 @@
     color: white;
 }
 
-.cart__value {
+.header-cart__value {
     font-family: Nunito;
     color: #909090;
 }

@@ -1,4 +1,6 @@
-import {App} from "/Furniture/js/component/App.js"
+import {App} from "/js/component/App.js"
+import {Router} from "/js/component/service/Router.js";
+
 let app = new App();
 app.liveRender = true;
-app.init();
+new Router(app);
