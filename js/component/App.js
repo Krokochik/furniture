@@ -74,12 +74,6 @@ export class App extends Component {
     }
 
     loadComponentsToTree() {
-        /*        for (let i in this.#components) {
-                    let component = this.#components[i];
-                    if (component && component.getNode()) {
-                        this.#htmlTree.app.append(component.getNode());
-                    }
-                }*/
         this.#components.forEach(component => {
             if (component && component.getNode()) {
                 if (![...component.getNode().classList].includes(component.hash)) {
