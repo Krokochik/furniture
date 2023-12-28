@@ -62,7 +62,7 @@ export class Product {
                 <div class="card__presentation">
                     <img src="${this.image}" alt="image">
                     <button class="card__to-cart">
-                        <img src="/img/add-to-cart.svg" alt="to cart">
+                        <img src="/furniture/img/add-to-cart.svg" alt="to cart">
                     </button>
                 </div>
                 <a class="card__title" data-href="/product/${this.id}/">${this.title}</a>
@@ -89,7 +89,7 @@ export class Product {
                     <div class="product__info">
                         <span class="product__price">$ ${this.price}</span>
                         <div class="product__rating">
-                            <img src="/img/star.svg" alt="star">
+                            <img src="/furniture/img/star.svg" alt="star">
                             <span>${this.rating}</span>
                         </div>
                     </div>
