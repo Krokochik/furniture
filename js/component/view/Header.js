@@ -5,7 +5,7 @@ import {Bean} from "../service/Bean.js";
 export class Header extends Component {
     requirements = [
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/header.css">`
+            `<link rel="stylesheet" href="/furniture/css/header.css">`
         ),
         Requirement.ofString(
             `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gelasio">`
