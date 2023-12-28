@@ -11,10 +11,10 @@ export class App extends Component {
             `<title>Furniture</title>`
         ),
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/reset.css">`
+            `<link rel="stylesheet" href="/furniture/css/reset.css">`
         ),
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/main.css">`
+            `<link rel="stylesheet" href="/furniture/css/main.css">`
         )
     ];
 
