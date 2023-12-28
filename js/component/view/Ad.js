@@ -4,7 +4,7 @@ import {Requirement} from "../model/Requirement.js";
 export class Ad extends Component {
     requirements = [
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/ad.css">`
+            `<link rel="stylesheet" href="/furniture/css/ad.css">`
         ),
         Requirement.ofString(
             `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gelasio">`
