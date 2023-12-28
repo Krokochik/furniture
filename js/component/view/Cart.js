@@ -43,13 +43,13 @@ export class Cart extends Component {
                                         <span class="cart__price">$ ${product.price}</span>
                                     </div>
                                     <button class="cart__exclude">
-                                            <img src="/img/cross.svg" alt="exclude">
+                                            <img src="/furniture/img/cross.svg" alt="exclude">
                                     </button>
                                 </div>
                                 <div class="cart__count">
-                                    <button class="active"><img src="/img/add-active.svg" alt="+"></button>
+                                    <button class="active"><img src="/furniture/img/add-active.svg" alt="+"></button>
                                     <input class="cart__input" type="number" min="01" value="${count}">
-                                    <button class="inactive"><img src="/img/pop-active.svg" alt="-"></button>
+                                    <button class="inactive"><img src="/furniture/img/pop-active.svg" alt="-"></button>
                                 </div>
                             </div> 
                         </li>
@@ -68,28 +68,28 @@ export class Cart extends Component {
                     let previousInputValue = input.value;
 
                     const forbidAdd = () => {
-                        addButton.querySelector("img").src = "/img/add-inactive.svg";
+                        addButton.querySelector("img").src = "/furniture/img/add-inactive.svg";
                         addButton.classList.remove("active");
                         addButton.classList.add("inactive");
                         addButton.disabled = true;
                     };
 
                     const permitAdd = () => {
-                        addButton.querySelector("img").src = "/img/add-active.svg";
+                        addButton.querySelector("img").src = "/furniture/img/add-active.svg";
                         addButton.classList.remove("inactive");
                         addButton.classList.add("active");
                         addButton.disabled = false;
                     };
 
                     const forbidRemove = () => {
-                        removeButton.querySelector("img").src = "/img/pop-inactive.svg";
+                        removeButton.querySelector("img").src = "/furniture/img/pop-inactive.svg";
                         removeButton.classList.remove("active");
                         removeButton.classList.add("inactive");
                         removeButton.disabled = true;
                     };
 
                     const permitRemove = () => {
-                        removeButton.querySelector("img").src = "/img/pop-active.svg";
+                        removeButton.querySelector("img").src = "/furniture/img/pop-active.svg";
                         removeButton.classList.remove("inactive");
                         removeButton.classList.add("active");
                         removeButton.disabled = false;
