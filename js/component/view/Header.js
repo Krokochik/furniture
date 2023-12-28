@@ -23,7 +23,7 @@ export class Header extends Component {
             <header class="header">
                 <form class="header__search">
                     <button type="button">
-                        <img src="/img/search.svg" alt="search"> 
+                        <img src="/furniture/img/search.svg" alt="search"> 
                     </button>
                     <input id="search" type="text">
                 </form>
@@ -34,7 +34,7 @@ export class Header extends Component {
                 <div class="header__cart">
                     <button class="header-cart__link" data-href="/cart">
                         <span id="header__count"></span>
-                        <img src="/img/cart.svg" alt="cart">
+                        <img src="/furniture/img/cart.svg" alt="cart">
                     </button>
                     <span id="header__cost" class="header-cart__value">$ 0.00</span>
                 </div>
