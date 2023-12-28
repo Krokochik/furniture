@@ -150,6 +150,7 @@ export class App extends Component {
         if (requirements) {
             requirements.forEach(requirement => {
                 if (!document.querySelector(`.${requirement.hash}`)) {
+                    requirement.content.href = "/furniture/" + requirement.content.href;
                     switch (requirement.location) {
                         case "head":
                             this.#htmlTree.head.append(requirement.content.cloneNode(true));
