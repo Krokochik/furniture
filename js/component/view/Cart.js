@@ -7,7 +7,7 @@ import {Product} from "../model/Product.js";
 export class Cart extends Component {
     requirements = [
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/cart.css">`
+            `<link rel="stylesheet" href="/furniture/css/cart.css">`
         ),
         Requirement.ofString(
             `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">`
