@@ -4,7 +4,7 @@ import {Requirement} from "../model/Requirement.js";
 export class Nav extends Component {
     requirements = [
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/nav.css">`
+            `<link rel="stylesheet" href="/furniture/css/nav.css">`
         ),
         Requirement.ofString(
             `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gelasio">`
