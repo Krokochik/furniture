@@ -6,7 +6,7 @@ import {Bean} from "../service/Bean.js";
 export class Shop extends Component {
     requirements = [
         Requirement.ofString(
-            `<link rel="stylesheet" href="/css/shop.css">`
+            `<link rel="stylesheet" href="/furniture/css/shop.css">`
         ),
         Requirement.ofString(
             `<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">`
